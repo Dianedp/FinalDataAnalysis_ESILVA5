@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import pprint
 
 
 def scale_func(music):
@@ -28,7 +29,7 @@ print(data, end="\n\n\n")
 req = data.to_csv(index=0)
 
 resp = requests.post("http://127.0.0.1:5000/clf", req).json()
-print(resp, end="\n\n\n")
+pprint.pprint(resp)
 
 resp = requests.post("http://127.0.0.1:5000/xgb", req).json()
-print(resp)
+pprint.pprint(resp)
