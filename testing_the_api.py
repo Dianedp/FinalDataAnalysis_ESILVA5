@@ -27,9 +27,6 @@ data = data.drop(axis=1, columns=0)
 print(data, end="\n\n\n")
 req = data.to_csv(index=0)
 
-resp = requests.post("http://127.0.0.1:5000/predictor", req).json()
-print(resp, end="\n\n\n")
-
 resp = requests.post("http://127.0.0.1:5000/clf", req).json()
 print(resp, end="\n\n\n")
 
