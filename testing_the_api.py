@@ -18,7 +18,7 @@ def random_sample(filename="YearPredictionMSD.csv", num_samples=10):
     print("Shape of the dataset after getting cleaned : ", base_for_samples.shape, end='\n\n\n')
 
     samples = base_for_samples.sample(num_samples, axis=0)
-    print("what our sample looks like : ", samples, end='\n\n\n')
+    print("what our sample looks like : ", samples, end='\n\n\n', sep='\n')
     return scale_func(samples)
 
 
@@ -28,8 +28,5 @@ data = data.drop(axis=1, columns=0)
 print(data, end="\n\n\n")
 req = data.to_csv(index=0)
 
-resp = requests.post("http://127.0.0.1:5000/clf", req).json()
-pprint.pprint(resp)
-
-resp = requests.post("http://127.0.0.1:5000/xgb", req).json()
+resp = requests.post("http://127.0.0.1:5000/predictor", req).json()
 pprint.pprint(resp)
