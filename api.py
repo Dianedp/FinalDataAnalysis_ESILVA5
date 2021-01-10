@@ -32,7 +32,7 @@ def clf():
 @app.route("/")
 def greeting():
     return "Hello" \
-           " let's predict the year of the production of your desired song!", 201
+           " let's predict the year of the production of your desired song!"
 
 
 if __name__ == '__main__':
