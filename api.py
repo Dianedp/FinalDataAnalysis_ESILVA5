@@ -3,27 +3,18 @@ import io
 import pickle
 import pandas as pd
 from flask import Flask, request
+from joblib import load
 
 app = Flask(__name__)
 
 
-@app.route('/xgb', methods=['POST'])
-def xgb():
-    xgb_model = pickle.load(open("final_prediction_XGB.pickle", "rb"))
+@app.route('/predictor', methods=['POST'])
+def predictor():
+    """model = pickle.load(open("final_prediction_clf.pickle", "rb"))"""
+    model = load('filename.joblib')
     req = io.StringIO(request.data.decode('utf-8'))
     df = pd.read_csv(req, sep=',', header=0)
-    prediction = xgb_model.predict(df)
-    response = pd.DataFrame(prediction, index=df.index, columns=["The predicted decade of production with XGB"])
-    json_response = response.to_json(orient='table', indent=2)
-    return json_response, 201
-
-
-@app.route('/clf', methods=['POST'])
-def clf():
-    xgb_model = pickle.load(open("final_prediction_clf.pickle", "rb"))
-    req = io.StringIO(request.data.decode('utf-8'))
-    df = pd.read_csv(req, sep=',', header=0)
-    prediction = xgb_model.predict(df)
+    prediction = model.predict(df)
     response = pd.DataFrame(prediction, index=df.index, columns=["The predicted decade of production with CLF"])
     json_response = response.to_json(orient='table', indent=2)
     return json_response, 201
